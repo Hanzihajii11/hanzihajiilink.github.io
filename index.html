@@ -5,187 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trang Cá Nhân - HanziLink</title>
     <style>
-        /* Reset CSS */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        /* Body Style */
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #e0f7fa, #ffffff);
-            color: #333;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        /* Header */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #002244;
-            color: white;
-            padding: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        header h1 {
-            color: gold;
-            font-size: 2em;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-        /* Navigation Bar */
-        .nav-bar {
-            display: flex;
-            justify-content: center;
-            background-color: #3498db;
-            padding: 10px;
-        }
-        .nav-bar button {
-            background-color: #002244;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 1em;
-            margin: 0 10px;
+        /* ... Phần CSS đã có của bạn ... */
+        
+        /* Avatar Styles */
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ccc;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-        .nav-bar button:hover {
-            background-color: #2980b9;
-            transform: scale(1.05);
-        }
-        /* Content Style */
-        .content {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            max-width: 800px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 20px;
-            flex: 1;
-        }
-        section {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-align: center;
-        }
-        section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        }
-        h2 {
-            color: #3498db;
-            font-size: 1.5em;
-            margin-bottom: 10px;
-        }
-        p {
-            color: #666;
-            line-height: 1.6;
-        }
-        /* Footer */
-        footer {
-            text-align: center;
-            background: #f0f3f5;
-            padding: 20px;
-            font-size: 0.9em;
-            color: #666;
-            border-top: 1px solid #ddd;
-        }
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            justify-content: center;
-            align-items: center;
-            z-index: 10;
-        }
-        .modal.active {
-            display: flex;
-        }
-        .modal-content {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            width: 300px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            text-align: center;
             position: relative;
         }
-        .modal-content h3 {
-            color: #3498db;
-            margin-bottom: 20px;
+
+        /* Dropdown Menu */
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            overflow: hidden;
+            z-index: 20;
+            width: 150px;
         }
-        .modal-content input {
-            width: 100%;
+        .dropdown a {
+            display: block;
             padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            transition: border-color 0.3s;
+            color: #3498db;
+            text-decoration: none;
+            text-align: left;
         }
-        .modal-content input:focus {
-            border-color: #3498db;
-            outline: none;
-        }
-        .modal-content button {
-            background-color: #3498db;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
-            transition: background-color 0.3s;
-        }
-        .modal-content button:hover {
-            background-color: #2980b9;
+        .dropdown a:hover {
+            background-color: #f0f0f0;
         }
     </style>
 </head>
 <body>
 <header>
     <h1>Chào mừng Đến với HanziLink</h1>
+    <div id="avatarContainer" style="display: none;">
+        <div class="avatar" onclick="toggleDropdown()"></div>
+        <div id="dropdownMenu" class="dropdown">
+            <a href="#" onclick="showUserInfo()">Thông tin cá nhân</a>
+        </div>
+    </div>
 </header>
 
 <!-- Navigation Bar -->
-<div class="nav-bar">
+<div class="nav-bar" id="authButtons">
     <button onclick="openModal('signupModal')">Đăng Ký</button>
     <button onclick="openModal('loginModal')">Đăng Nhập</button>
 </div>
 
 <div class="content">
-    <section>
-        <h2><a href="http://example.com/shader" style="color: #3498db; text-decoration: none;">Shader</a></h2>
-        <p>Khám phá các dự án shader hiện đại, đa dạng về hiệu ứng đồ họa và cách sử dụng trong game.</p>
-    </section>
-    <section>
-        <h2><a href="http://example.com/pack" style="color: #3498db; text-decoration: none;">Pack</a></h2>
-        <p>Chiêm ngưỡng các pack độc quyền, với thiết kế phong phú và linh hoạt, dành cho nhà sáng tạo.</p>
-    </section>
-    <section>
-        <h2><a href="http://example.com/addon" style="color: #3498db; text-decoration: none;">Addon</a></h2>
-        <p>Đắm chìm vào các addon tiện ích, bổ sung tính năng và mở rộng trải nghiệm sáng tạo của bạn.</p>
-    </section>
-    <section>
-        <h2><a href="http://example.com/farm" style="color: #3498db; text-decoration: none;">Máy Farm</a></h2>
-        <p>Hệ thống máy farm tự động, tối ưu hóa sản xuất và nâng cao hiệu quả trong mọi dự án.</p>
-    </section>
+    <!-- ... Phần nội dung đã có của bạn ... -->
 </div>
 
 <footer>
@@ -218,33 +93,22 @@
 </div>
 
 <script>
-    // Open modal function
-    function openModal(modalId) {
-        document.getElementById(modalId).classList.add('active');
-        clearNotifications(modalId); // Clear notifications on open
+    // Function to show avatar and hide login/signup buttons
+    function showAvatar() {
+        document.getElementById('authButtons').style.display = 'none';
+        document.getElementById('avatarContainer').style.display = 'flex';
     }
 
-    // Close modal function
-    function closeModal(modalId) {
-        document.getElementById(modalId).classList.remove('active');
+    // Function to toggle dropdown menu
+    function toggleDropdown() {
+        const dropdown = document.getElementById('dropdownMenu');
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
     }
 
-    // Close modal when clicking outside the content
+    // Close dropdown when clicking outside
     window.onclick = function(event) {
-        const modals = document.getElementsByClassName('modal');
-        Array.from(modals).forEach(modal => {
-            if (event.target === modal) {
-                modal.classList.remove('active');
-            }
-        });
-    }
-
-    // Clear notifications based on modal
-    function clearNotifications(modalId) {
-        if (modalId === 'loginModal') {
-            document.getElementById('loginNotification').innerHTML = '';
-        } else if (modalId === 'signupModal') {
-            document.getElementById('signupNotification').innerHTML = '';
+        if (!event.target.matches('.avatar')) {
+            document.getElementById('dropdownMenu').style.display = 'none';
         }
     }
 
@@ -253,9 +117,9 @@
         const username = document.getElementById('loginUsername').value;
         const password = document.getElementById('loginPassword').value;
 
-        // Simulate login logic
-        if (username === 'test' && password === 'test') { // Example validation
+        if (username === 'test' && password === 'test') {
             document.getElementById('loginNotification').innerHTML = 'Đăng nhập thành công!';
+            showAvatar(); // Show avatar after successful login
             setTimeout(() => {
                 closeModal('loginModal');
             }, 2000);
@@ -264,26 +128,12 @@
         }
     }
 
-    // Example signup function
-    function signup() {
-        const username = document.getElementById('signupUsername').value;
-        const password = document.getElementById('signupPassword').value;
-        const confirmPassword = document.getElementById('signupConfirmPassword').value;
-
-        // Basic validation
-        if (password !== confirmPassword) {
-            document.getElementById('signupNotification').innerHTML = 'Mật khẩu không khớp!';
-            return;
-        }
-
-        // Simulate signup logic
-        document.getElementById('signupNotification').innerHTML = 'Đăng ký thành công! Đang chuyển sang đăng nhập...';
-        
-        setTimeout(() => {
-            closeModal('signupModal');
-            openModal('loginModal');
-        }, 2000);
+    // Function to display user info
+    function showUserInfo() {
+        alert('Thông tin cá nhân: \nTên: ' + document.getElementById('loginUsername').value + '\nEmail: example@gmail.com');
     }
+
+    // Signup logic...
 </script>
 </body>
 </html>
